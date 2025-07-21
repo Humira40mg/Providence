@@ -1,0 +1,441 @@
+[2025-07-20 20:02:58,669] INFO - Initialisation of Providence
+[2025-07-20 20:03:59,094] DEBUG - STREAM b'IHDR' 16 13
+[2025-07-20 20:03:59,094] DEBUG - STREAM b'sBIT' 41 3
+[2025-07-20 20:03:59,094] DEBUG - b'sBIT' 41 3 (unknown)
+[2025-07-20 20:03:59,094] DEBUG - STREAM b'IDAT' 56 8192
+[2025-07-20 20:03:59,447] DEBUG - STREAM b'IHDR' 16 13
+[2025-07-20 20:03:59,447] DEBUG - STREAM b'IDAT' 41 65536
+[2025-07-20 20:03:59,796] DEBUG - ['tesseract', '/tmp/tess_lwg5f00o_input.PNG', '/tmp/tess_lwg5f00o', 'txt']
+[2025-07-20 20:04:04,758] DEBUG - Starting new HTTP connection (1): localhost:11434
+[2025-07-20 20:04:14,533] DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+[2025-07-20 20:04:14,681] INFO - JOKSO : Applications ouvertes : Les BABY GIRLS - Discord, logger.py - Providence - VSCodium,  | Phrases et mots lus à l'écran : ```07 1® 2 3 4 56 7 8 9@ 20:03 < @ i
+
+72 S 7 =
+
+@ Messages privés
+
+Rechercher Q
+
+Rechercher/lancer une conversation A\ LesBABY GIRLS
+
+& Amis Membres—7
+% Demandes de message
+
+D Nitro
+
+3 Boutique
+
+& Centre familial
+
+Messages privés +
+
+@) Lemrens (S 3 Mepeson Gecronesen 1159
+Tmembres - - "
+
+™ Alex «Ppsx
+
+Vivaldi, Floorp gaming
+
+9
+@
+
+s
+*
+a
+@
+2
+®
+o
+
+) Nepeson ecnoneser
+#9 Brown Titan
+~10
+2 Quetoutles3
+3 membres
+@R oo
+tests
+A% Garamaraman dan Madudune. yaura des pauses durant les 13h 2.
+Floppa Bot
+@ [ o ‘a Brown Titan 1300
+- % Chepa
+e ﬁ ece (SINEIEN [Maisyis deslohic e ans e
+i ﬁ Wink_ONI el s) MNepesop 6ecnonesen 1201
+=¥ Rien que pour le conducteur, sauf sils sont 2 ou un truc du genre
+@ roors
+D @Brown Titan Mais y'a des chiotte dans le bus
+=V cebalors
+
+Les Tutels / ALIENS g
+
+3membres
+
+ans Les BABY GIRLS
+
+voyer un messaj
+
+&
+
+.1 JoKSo
+
+```
+
+PROVIDENCE : [ADD_MEMORY] L'utilisateur JokSo est actuellement étudiant en informatique, il a les applications Discord et VSCodium ouvertes ainsi que Providence (cette IA) et logger.py. Il lit une conversation avec des utilisateurs nommés Lemrens, Alex «Ppsx» et Floppa Bot. Ils discutent de Brown Titan, un nom qui semble faire référence à une personne ou un sujet de discussion. Les mots "Rien que pour le conducteur" indiquent qu'ils sont dans un véhicule, y'auraient des chiottes dans le bus et ils ont une conversation sur les Tutels / ALIENS g.
+[INTERVENTION] Vous pouvez demander à JokSo de vous dire ce qui se passe avec Brown Titan ou si il a quelque chose à partager sur la discussion en cours.
+[2025-07-20 20:05:14,923] DEBUG - STREAM b'IHDR' 16 13
+[2025-07-20 20:05:14,923] DEBUG - STREAM b'sBIT' 41 3
+[2025-07-20 20:05:14,923] DEBUG - b'sBIT' 41 3 (unknown)
+[2025-07-20 20:05:14,923] DEBUG - STREAM b'IDAT' 56 8192
+[2025-07-20 20:05:15,150] DEBUG - STREAM b'IHDR' 16 13
+[2025-07-20 20:05:15,150] DEBUG - STREAM b'IDAT' 41 65536
+[2025-07-20 20:05:15,451] DEBUG - ['tesseract', '/tmp/tess_htyc1rda_input.PNG', '/tmp/tess_htyc1rda', 'txt']
+[2025-07-20 20:05:19,317] DEBUG - Starting new HTTP connection (1): localhost:11434
+[2025-07-20 20:05:22,115] DEBUG - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+[2025-07-20 20:05:22,116] INFO - JOKSO : Applications ouvertes : Les BABY GIRLS - Discord, logger.py - Providence - VSCodium,  | Phrases et mots lus à l'écran : ```01 1® 2 3 4567 8 98
+
+20:05
+
+72 e 7S
+Y File Edit Selection View Go Run Terminal Help = = £ Providence BODE0 - o x
+EXPLORER @ logger.py >y M x
+ PROVIDENCE import logging
+% _pycache_
+. venv logging.basicConfig(
+e data level=1logging.DEBUG,
+<3 memory.json f : f
+format="[%(asctime)s] %(levelname)s - %(message)s',
+B systemprompt.txt
+handlers=[
+@ ressources - . " . " . N i A
+& EiEEmalEg loggJ'.ng4F11eHand1eI( ressources/providence.log", mode='a', encoding='utf-8'),
+B providence.png logging.StreamHandlex ()
+{3 tokenizer,json ) 1
+® temp )
+@ infogetter.py
+@ lImaccess.py logger = logging.getlLogger(__name__)
+@ loggerpy
+@ main.py
+@ memoriser.py
+@ parser.py
+K requirements.txt
+PROBLEMS ~ OUTPUT  DEBUGCONSOLE ~ TERMINAL  PORTS ython +~ [0 @ - £3 X
+.
+& i
+.1 JoKSo
+PROVIDENCE : [ADD_MEMORY] L'utilisateur JokSo est actuellement étudiant en informatique, il a les applications Discord et VSCodium ouvertes ainsi que Providence
+
+> OUTLINE
+> TIMELINE
+
+(cette IA) et logger.py. Il lit une conversation avec des utilisateurs nommés Lemrens, Alex «Ppsx» et Floppa Bot. Ils discutent de Brown Titan, un nom qui semb
+le faire référence a une personne ou un sujet de discussion. Les mots "Rien que pour le conducteur” indiquent qu'ils sont dans un véhicule, y'auraient des chiot.
+tes dans le bus et ils ont une conversation sur les Tutels / ALIENS g.
+[INTERVENTION] Vous pouvez demander & JokSo de vous dire ce qui se passe avec Brown Titan ou si il a quelque chose & partager sur la discussion en cours
+
+```
+
+PROVIDENCE : [INTERVENTION] Demande à JoKSo d'expliquer pourquoi il discute de Brown Titan avec ses interlocuteurs.
+[2025-07-21 11:21:37,328] INFO - Initialisation of Providence
+[2025-07-21 11:23:11,637] INFO - USER : Applications ouvertes : [GitHub Desktop], [main.py - Providence - VSCodium], [Les BABY GIRLS - Discord],  | Phrases et mots lus à l'écran : ```07 1® 28 3 45 6 7 8 9@
+
+11:23
+
+<
+
+(OB o }
+
+File Edit View Repository Branch Help
+
+B Fioppasot ¥ main
+
+Changes History.
+
+0 changed files
+
+B sy o |
+
+Description
+
+A+
+
+Fetch origin
+~
+& Last fetched ust now
+
+No local changes
+
+‘There are no uncommitted changes in this repository. Here are some friendly suggestions
+for what to do next.
+
+B
+
+‘Open the repository In your external editor
+
+Select your editor in Options. Open in VSCodium
+
+Repository menu or Ctrl + Shift + A
+
+View the files of your repository in your File Manager
+
+Repository menu or Ctrl + Shift + Showin your File Manager
+
+‘Open the repository page on GitHub in your browser
+
+Repository menu or Ctrl + Shift + G View on Githiub
+
+```
+
+AI : <add> JoKSo est étudiant en Licence d'Informatique et travaille actuellement sur un projet Python avec VSCodium. Il a ouvert GitHub Desktop et main.py dans VSCodium, mais il n'a pas encore apporté de changements locaux. Il peut choisir d'utiliser son éditeur extérieur pour travailler sur le fichier main.py ou de visualiser les fichiers du référentiel dans son gestionnaire de fichiers. Il peut également consulter la page du référentiel GitHub dans son navigateur web en utilisant l'option "View on Github" dans le menu de répertoire.
+[2025-07-21 11:24:47,857] INFO - USER : Applications ouvertes : [GitHub Desktop], [main.py - Providence - VSCodium], [Les BABY GIRLS - Discord],  | Phrases et mots lus à l'écran : ```< @ #
+
+01 1® 28 3 4 56 7 8 9@
+
+/ 72 = 73 —
+File Edit View Repository Branch Help
+
+urrent repo urrent branch Fetch origin
+& Fioppagot T F man T O Gatretcneat minue
+
+Changes History.
+
+No local changes
+
+‘There are no uncommitted changes in this repository. Here are some friendly suggestions
+for what to do next.
+
+Open the repository In your external editor
+
+odium
+Create a new repository x
+
+Name
+
+(Providence Show In your Fle Manager
+Description
+
+(vt ook at what youare dong and nofyyou deck ]
+
+View on GitHub
+Local path
+
+[ Inomefjokso/Documents/GitHub | [ choose...
+
+(C) Iniilize this repository with a README
+
+attignore
+(None 9
+Lcense
+
+(None 9
+
+‘The repository wil be created at (/home/jokso/Docunents/G
+
+```
+
+AI : <intervention> JoKSo est étudiant en Licence d'Informatique et travaille actuellement sur un projet Python avec VSCodium. Il a ouvert GitHub Desktop et main.py dans VSCodium, mais il n'a pas encore apporté de changements locaux. Il peut choisir d'utiliser son éditeur extérieur pour travailler sur le fichier main.py ou de visualiser les fichiers du référentiel dans son gestionnaire de fichiers. Il peut également consulter la page du référentiel GitHub dans son navigateur web en utilisant l'option "View on Github" dans le menu de répertoire. Pour initier un nouveau répertoire avec une README, il peut utiliser l'option 'Initialise this repository with a README'. Si il veut ignorer certains fichiers ou dossiers dans son référentiel, il peut créer un fichier .gitignore pour spécifier ces éléments à ignorer.
+[2025-07-21 11:26:26,090] INFO - USER : Applications ouvertes : [GitHub Desktop], [systemprompt.txt - Providence - VSCodium], [Les BABY GIRLS - Discord],  | Phrases et mots lus à l'écran : ```01 1® 28 3 4 5 6 7 8 9@ 11:26 < © W a 6@
+
+= 72 =S 7S —
+
+i File Edit Selection View Go Run Terminal Help « > O Providence N =} -
+EXPLORER B systemprompt.txt ressources M x
+
+ PROVIDENCE GERLAS Tu es une IA nommée $ainame. Tu assistes uniquement un utilisateur appelé $username. Tu regois réguliérement des exi
+8 _pycache_ Tu peux utiliser trois balises dont il faut obligatoirement utiliser 1'ouverture et la fermeture, uniquement si c’e:
+. venv <add>Pour enregistrer une information stratégique et importante, résumée en quelques mots.</add>
+
+® data
+
+{3 memory.json
+@ ressources
+[ providence.log
+B providence.png
+B systemprompt.txt
+{3 tokenizer,json
+@ s
+® _pycache_
+@ infogetter.py
+@ limaccess.py
+@ logger.py
+@ main.py
+@ memoriser.py
+@ parser.py
+® temp
+{3 configjson
+B requirements.txt
+
+> OUTLINE
+> TIMELINE
+
+<remove>Pour oublier une information obsoléte ou inutile.</remove>
+<intervention>Pour adresser un message pertinent a $username.</intervention>
+
+o
+
+Si aucune balise n’est appropriée, répond avec une seule phrase neutre résumant ce que tu comprends du contexte.
+Ne reformule pas inutilement les données recues. Ignore les détails triviaux. Ne parle jamais de toi. Ne comble pas
+
+Ne mémorise que ce qui est crucial celd te permettra de te souvenir des informations importante. Evite de stocker ce
+
+9 Mémoire actuelle
+
+OUTPUT  DEBUG CONSOLE ~ TERMINAL  PORTS
+
+yinon -~ [ @ -
+
+(None 9
+
+‘The repository wil be created at (/home/jokso/Docunents/G
+
+AL : <intervention> JoKSo est étudiant en Licence d'Informatique et travaille actuellement sur un projet Python avec VSCodium. Il a ouvert GitHub Des
+ktop et main.py dans VSCodium, mais il n'a pas encore apporté de changements locaux. Il peut choisir d'utiliser son éditeur extérieur pour travailler
+
+sur le fichier main.py ou de visualiser les fichiers du référentiel dans son gestionnaire de fichiers. Il peut également consulter la page du référe
+ntiel GitHub dans son navigateur web en utilisant 1'option "View on Github" dans le menu de répertoire. Pour initier un nouveau répertoire avec une R
+EADME, il peut utiliser 1'option 'Initialise this repository with a README'. Si il veut ignorer certains fichiers ou dossiers dans son référentiel, i
+1 peut créer un fichier .gitignore pour spécifier ces éléments & ignorer
+
+g —
+
+X
+
+x
+
+```
+
+AI : <add> JoKSo est actuellement en train de travailler sur un projet Python avec VSCodium. Il a ouvert le fichier main.py dans son éditeur mais n'a pas encore apporté de changements locaux. Il peut choisir d'utiliser son éditeur extérieur pour travailler sur le fichier, de visualiser les fichiers du référentiel dans son gestionnaire de fichiers ou de consulter la page GitHub du référentiel dans son navigateur web. Il peut également initialiser un nouveau répertoire avec une README en utilisant l'option 'Initialise this repository with a README'. Si il veut ignorer certains fichiers ou dossiers dans son référentiel, il peut créer un fichier .gitignore pour spécifier ces éléments à ignorer.
+[2025-07-21 11:28:04,626] INFO - USER : Applications ouvertes : [GitHub Desktop], [systemprompt.txt - Providence - VSCodium], [Les BABY GIRLS - Discord],  | Phrases et mots lus à l'écran : ```01 1® 28 3 4 5 6 7 8 9@ 11:27 < © W a @
+
+i File Edit Selection
+
+EXPLORER
+
+ PROVIDENCE
+% _pycache_
+-, .venv
+® data
+{3 memory.json
+@ ressources
+[ providence.log
+[ providence.png
+B systemprompt.txt
+{3 tokenizer,json
+@ s
+® _pycache_
+@ infogetter.py
+@ limaccess.py
+@ logger.py
+@ main.py
+@ memoriser.py
+@ parser.py
+® temp
+{3 configjson
+B requirements.txt
+
+> OUTLINE
+> TIMELINE
+
+View Go
+
+Run
+
+- e & e
+
+Terminal  Help = = £ Providence BODE0 - o x
+
+B systemprompt.txt ressources M x
+
+AL :
+
+Tu es une IA nommée $ainame. Tu assistes uniquement un utilisateur appelé $username. Tu regois réguliérement des ex
+Tu peux utiliser trois balises dont il faut obligatoirement utiliser 1'ouverture et la fermeture, uniquement si c’e
+<add>Pour enregistrer une information stratégique et importante, résumée en quelques mots.</add>
+
+<remove>Pour oublier une information obsoléte ou inutile.</remove> B
+<intervention>Pour adresser un message pertinent a $username.</intervention>
+
+N'oublie absolument pas de ferm
+
+Si aucune balise n'est appropri s fermeture résumant ce que tu comprends du contexte.
+
+Ne reformule pas inutilement les données recues. Ignore les détails triviaux. Ne parle jamais de toi. Ne comble pas
+Ne mémorise que ce qui est crucial celd te permettra de te souvenir des informations importante. Evite de stocker ce
+Mémoire actuelle
+
+OUTPUT  DEBUG CONSOLE ~ TERMINAL  PORTS
+
+ython +~ [0 @ - I3 X
+
+<add> JokSo est actuellement en train de travailler sur un projet Python avec VSCodium. Il a ouvert le fichier main.py dans son éditeur mais n'a
+
+pas encore apporté de changements locaux. Il peut choisir d'utiliser son éditeur extérieur pour travailler sur le fichier, de visualiser les fichier
+s du référentiel dans son gestionnaire de fichiers ou de consulter la page GitHub du référentiel dans son navigateur web. Il peut également initialis
+er un nouveau répertoire avec une README en utilisant 1'option 'Initialise this repository with a README'. Si il veut ignorer certains fichiers ou do
+ssiers dans son référentiel, il peut créer un fichier .gitignore pour spécifier ces éléments & ignorer
+```
+
+AI : <add> JoKSo est actuellement en train de travailler sur un projet Python avec VSCodium. Il a ouvert le fichier main.py dans son éditeur mais n'a pas encore apporté de changements locaux. Il peut choisir d'utiliser son éditeur extérieur pour travailler sur le fichier, de visualiser les fichiers du référentiel dans son gestionnaire de fichiers ou de consulter la page GitHub du référentiel dans son navigateur web. Il peut également initialiser un nouveau répertoire avec une README en utilisant 1'option 'Initialise this repository with a README'. Si il veut ignorer certains fichiers ou dossiers dans son référentiel, il peut créer un fichier .gitignore pour spécifier ces éléments à ignorer.
+[2025-07-21 11:29:40,407] INFO - USER : Applications ouvertes : [ChatGPT — Mozilla Firefox], [GitHub Desktop], [main.py - Providence - VSCodium], [Les BABY GIRLS - Discord],  | Phrases et mots lus à l'écran : ```0 1@ ®0 3 4 5 6 7 8 9@ 11:29
+
+7. )
+© - ChatGPT x + @
+0O ¢« -5 X O & chatgpt.com 0% L @ H = » =
+© O  ChatGPT v 4+ Obtenir ChatGPT Plus @
+@ Nouveau chat [ 4 ’ *
+
+Q Rechercher des ch.. & 4
+
+<
+
+-
+
+@ Bibliotheque
+
+Comment puis-
+
+\Poser une question
+
++ & outils
+
+En attente de chatgpt.com...
+
+& Foppagot
+
+File Edit View Repository Branch Help
+
+) . Fetchorigin
+main =
+
+No local changes
+
+hat
+
+Open the repository In your external editor
+
+Create a new repository x
+
+Name
+
+Providence
+
+Description
+
+Local path
+
+Inome/jokso/Documents/GitHub. Choose.
+
+(C) Iniilize this repository with a README
+
+Git ignore
+
+None v
+License
+
+None v
+
+‘The repository will be created at /home/jokso/Docunents/6
+itHub/Providence
+
+Create repository Cancel
+```
+
+AI : <add> JokSo est actuellement en train de rechercher des informations sur un chatbot avec ChatGPT dans son navigateur Mozilla Firefox. Il a également ouvert GitHub Desktop et main.py avec VSCodium, mais il n'a pas encore apporté de changements locaux au projet Python qu'il travaille. Il peut initialiser un nouveau répertoire GitHub avec une README en utilisant l'option 'Initialise this repository with a README'. Si il veut ignorer certains fichiers ou dossiers dans son référentiel, il peut créer un fichier .gitignore pour spécifier ces éléments à ignorer.

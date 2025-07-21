@@ -1,0 +1,8 @@
+pillow
+pytesseract
+tokenizers
+requests
+threading
+pyautogui
+fuzzywuzzy
+python-Levenshtein
