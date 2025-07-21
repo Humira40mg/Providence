@@ -1,5 +1,6 @@
 {
     "ainame" : "Providence",
     "username" : "JoKSo",
-    "systempromptPath" : "ressources/systemprompt.txt"
+    "model" : "mistral",
+    "systempromptPath" : "ressources/systemprompt-fr.txt"
 }

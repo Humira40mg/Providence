@@ -1,8 +1,10 @@
-import re
 from memoriser import memory, addToMemory, removeFromMemory
 from subprocess import run
+from os import path
 
-balises = ["<add>", "<remove>", "<intervention>", "</add>", "</remove>", "</intervention>"]
+icon = path.abspath("ressources/providence.png")
+
+balises = ["[ADD]", "[REMOVE]", "[INTERVENTION]"]
 
 def parseResponse(response: str):
     balised = False
@@ -13,26 +15,23 @@ def parseResponse(response: str):
     
     if not balised : return
     
-    add = re.findall(r'<add>(.*?)</add>', response)
-    remove = re.findall(r'<remove>(.*?)</remove>', response)
-    intervention = re.findall(r'<intervention>(.*?)</intervention>', response)
+    add = response.split("[ADD]")
+    remove = response.split("[REMOVE]")
+    intervention = response.split("[INTERVENTION]")
     
     print(f"{add}\n{remove}\n{intervention}\n") # DEBUG
     
-    for info in add :
-        if len(info) > 1:
-            addToMemory(info)
+    if len(add) > 1 :
+        addToMemory(add[1].split("[REMOVE]")[0].split("[INTERVENTION]")[0])
 
-    for info in remove :
-        if len(info) > 1:
-            removeFromMemory(info)
+    if len(remove) > 1 :
+        removeFromMemory(remove[1].split("[ADD]")[0].split("[INTERVENTION]")[0])
 
-    for msg in intervention:
-        if len(msg) > 1:
-            run([
-                "notify-send",
-                "-i", "ressources/providence.png",
-                "Providence",
-                msg
-            ])
+    if len(intervention) > 1 : 
+        run([
+            "notify-send",
+            "-i", icon,
+            "Providence",
+            intervention[1].split("[ADD]")[0].split("[REMOVE]")[0]
+        ])
     
