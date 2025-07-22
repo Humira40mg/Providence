@@ -1,5 +1,8 @@
 import json
 from fuzzywuzzy import fuzz
+from os import makedirs
+
+makedirs("data", exist_ok=True)
 
 with open("data/memory.json", "r", encoding="utf-8") as f:
     memory = json.load(f)

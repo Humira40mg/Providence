@@ -1,4 +1,8 @@
 import logging
+from os import path
+
+
+log_file = path.join("ressorces/providence.log")
 
 logging.basicConfig(
     level= logging.INFO,
