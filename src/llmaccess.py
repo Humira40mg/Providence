@@ -12,7 +12,7 @@ tokenizer = Tokenizer.from_file("./ressources/tokenizer.json")
 with open("config.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-with open(config["systempromptPath"], "r", encoding="utf-8") as file:
+with open(f"ressources/systemprompt-{config['language']}.txt", "r", encoding="utf-8") as file:
     sys_prompt = file.read().replace("$ainame", config["ainame"]).replace("$username", config["username"])
 
 
@@ -52,7 +52,7 @@ class OllamaAccess :
             systemPrompt = self.updateSystemPrompt(systemPrompt)
 
             # Construire le prompt complet
-            conversation = "\n".join(self.history + [f"{config["username"]}: {prompt}"])
+            conversation = "\n".join(self.history + [f"{config['username']}: {prompt}"])
             
             if len(tokenizer.encode(f"{systemPrompt} {conversation}")) > 4096 :
                 conversation = self.tronkHistory(prompt)
@@ -77,7 +77,7 @@ class OllamaAccess :
         """ Make the AI forgot the oldest half of the dialogue History """
         self.history = self.history[floor(len(self.history)):]
         logger.info("History tronked.")
-        return "\n".join(self.history + [f"{config["username"]}: {prompt}"])
+        return "\n".join(self.history + [f"{config['username']}: {prompt}"])
 
     def updateSystemPrompt(self, sysprompt: str) -> str:
         """ Update the system prompt with the current memory """

@@ -6,6 +6,14 @@ icon = path.abspath("ressources/providence.png")
 
 balises = ["[ADD]", "[REMOVE]", "[INTERVENTION]"]
 
+def notify(msg):
+    run([
+            "notify-send",
+            "-i", icon,
+            "Providence",
+            msg
+        ])
+
 def parseResponse(response: str):
     balised = False
     for balise in balises:
@@ -28,10 +36,5 @@ def parseResponse(response: str):
         removeFromMemory(remove[1].split("[ADD]")[0].split("[INTERVENTION]")[0])
 
     if len(intervention) > 1 : 
-        run([
-            "notify-send",
-            "-i", icon,
-            "Providence",
-            intervention[1].split("[ADD]")[0].split("[REMOVE]")[0]
-        ])
+        notify(intervention[1].split("[ADD]")[0].split("[REMOVE]")[0])
     

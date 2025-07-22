@@ -6,3 +6,4 @@ threading
 pyautogui
 fuzzywuzzy
 python-Levenshtein
+flask

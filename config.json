@@ -1,6 +1,7 @@
 {
     "ainame" : "Providence",
-    "username" : "User",
+    "username" : "JoKSo",
     "model" : "mistral",
-    "systempromptPath" : "ressources/systemprompt-en.txt"
+    "apiport": "5000",
+    "language" : "fr"
 }
