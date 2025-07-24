@@ -1,7 +1,9 @@
 {
     "ainame" : "Providence",
-    "username" : "JoKSo",
-    "model" : "mistral",
+    "username" : "User",
+    "model" : "gemma3:4b",
+    "contextwindow": 128000,
+    "vision": true,
     "apiport": "5000",
-    "language" : "fr"
+    "language" : "english"
 }

@@ -27,8 +27,6 @@ def parseResponse(response: str):
     remove = response.split("[REMOVE]")
     intervention = response.split("[INTERVENTION]")
     
-    print(f"{add}\n{remove}\n{intervention}\n") # DEBUG
-    
     if len(add) > 1 :
         addToMemory(add[1].split("[REMOVE]")[0].split("[INTERVENTION]")[0])
 
