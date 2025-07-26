@@ -1,101 +1,42 @@
-# Providence – Local AI Contextual Assistant (Linux Only)
+# Providence – Assistant IA Contextuel (Projet perso, Linux uniquement)
 
-**Providence** is a privacy-respecting AI assistant that runs entirely **locally** on your Linux machine.
-It observes your screen in real time and sends intelligent contextual notifications based on what you’re doing.
+**Providence** est un assistant IA local qui me suit discrètement pendant que je bosse.
+Toutes les **1 minute 30**, il récupère ce que je vois à l'écran et ce que j'ai d'ouvert, pour me suggérer des **conseils ou remarques contextuelles**.
 
-> No cloud. No tracking. Just local intelligence.
-
----
-
-## Features
-
-* Real-time screen monitoring
-* Context-aware smart reactions using local LLMs
-* OCR via Tesseract for screen text analysis
-* Native Linux notifications via `notify-send`
-* Flask API server with control endpoints
+> Il parle (via [OpenVoice](https://github.com/myshell-ai/OpenVoice)), il réfléchit (avec un LLM local via [Ollama](https://ollama.com/)), et il reste 100% **local**.
+> Pas de cloud, pas d’écoute indiscrète.
 
 ---
 
-## Platform Support
+## À quoi ça sert ?
 
-Currently supported on **Linux only** due to reliance on `notify-send`, and `wmctrl`.
+C’est un assistant qui :
+
+* Observe l’écran à intervalles réguliers
+* Lit le texte à l’écran via **OCR** (et vision si le modèle le permet)
+* Identifie les fenêtres ouvertes
+* Génère une réaction avec un modèle LLM local (ex : Mistral, Gemma…)
+* Parle avec une voix custom (en français, japonais, anglais…)
+* Ne dit rien si y’a rien d’utile à dire
 
 ---
 
 ## Installation
 
-First, clone the repository and run the install script:
+1. Créer un environnement conda :
 
 ```bash
-git clone https://github.com/yourname/providence.git
-cd providence
-./install.sh
+conda create -n providence python=3.9
+conda activate providence
 ```
-Make sure to also install the Linux System Dependencies (see at the end of this readme).
 
-This will install the necessary dependencies and tools.
-
----
-
-## Running the Assistant
-
-Use the provided script to launch the Flask server and the assistant:
+2. Installer les dépendances :
 
 ```bash
-./run.sh
+pip install -r requirements.txt
 ```
 
----
-
-## Available Endpoints (Flask Server)
-
-| Endpoint          | Description                     |
-| ----------------- | ------------------------------- |
-| `POST /eyelaunch` | Start screen monitoring         |
-| `POST /eyestop`   | Stop screen monitoring          |
-| `POST /shutdown`  | Gracefully shut down the server |
-
----
-
-## Model Support
-
-Providence supports both **vision** and **text** models locally through [Ollama](https://ollama.com/).
-You can use any model available in your Ollama setup, such as:
-
-* `gemma:3b` (default)
-* `mistral:7b`
-* `llava` (vision + text)
-
-> **Tokenizer Notice**
-> If you use a custom model, make sure to place the corresponding tokenizer file in `./resources/` with the following format:
-> `MODELNAME-tokenizer.json`
-> *(e.g., `gemma3-tokenizer.json`, `mistral-tokenizer.json`)*
-> And change the context window size in config to what your model can support.
-
----
-
-## Tech Stack
-
-* **Python 3.13+**
-* **Flask** – lightweight API layer
-* **Ollama** – LLM and VLM backends
-* **PyTesseract** – OCR from screenshots
-* **Pillow** – image processing
-* **pyautogui** – screen capture and input hooks
-* **notify-send** – native Linux notifications
-
----
-
-## Linux System Dependencies
-
-Install system packages manually or through the `install.sh` script.
-
-### Debian/Ubuntu
-
-```bash
-sudo apt install tesseract-ocr libnotify-bin wmctrl
-```
+3. Installer les dépendances système :
 
 ### Arch Linux
 
@@ -103,35 +44,63 @@ sudo apt install tesseract-ocr libnotify-bin wmctrl
 sudo pacman -S tesseract libnotify wmctrl
 ```
 
----
+### Ubuntu/Debian
 
-## Example Use Case
+```bash
+sudo apt install tesseract-ocr libnotify-bin wmctrl
+```
+4. Installer correctement [**OpenVoice**](https://github.com/myshell-ai/OpenVoice) dans *"~/OpenVoice/"*.
+Utiliser l'environement conda 'providence' créé plus tôt à la place de crée un nouvel environnement 'openvoice'.
+(installer les checkpoints v1 et v2).
 
-You're working on a coding project and Providence detects you're stuck on an error message.
-It captures the screen, extracts the relevant code using OCR, and suggests a potential fix — all locally.
+Aussi installer ollama (sinon on ne va pas aller très loin.)
 
----
+5. Lancer avec :
 
-## Privacy First
-
-Providence **never** sends data to the cloud.
-All OCR, AI reasoning, and decision logic happen on your machine.
-
----
-
-## Roadmap Ideas
-
-* Audio context capture (e.g., hotword triggers or keyboard profiling)
-* a POST request to open a chat window to interact with providence.
+```bash
+./run.sh
+```
 
 ---
 
-## Contributing
+## Synthèse vocale
 
-Feel free to open issues or PRs for bugs, feature suggestions, or model support.
+Utilise [**OpenVoice**](https://github.com/myshell-ai/OpenVoice) pour lire les réponses à haute voix (optionnel mais fun).
+Tu peux configurer une voix spécifique dans les ressources.
 
 ---
 
-## License
+## Appels API
 
-MIT — Use freely, fork with respect.
+Providence expose quelques routes Flask :
+
+| Méthode | URL              | Action                              |
+| ------- | ---------------- | ----------------------------------- |
+| POST    | `/eyelaunch`     | Démarre l'observation               |
+| POST    | `/eyestop`       | Stoppe l'observation                |
+| POST    | `/toggleyapping` | Active/désactive la synthèse vocale |
+| POST    | `/shutdown`      | Ferme proprement le serveur Flask   |
+
+---
+
+## Vie privée
+
+Tout est **local** :
+
+* Pas d’appel vers le cloud
+* Pas de stockage externe
+* Les screenshots temporaires sont automatiquement supprimés
+
+---
+
+## À venir
+
+* Détection vocale ou hotword
+* Interface de chat
+* Meilleure personnalisation des réactions
+
+---
+
+## Licence
+
+MIT — Utilisation libre. Forks bienvenus.

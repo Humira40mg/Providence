@@ -28,11 +28,13 @@ def parseResponse(response: str):
     intervention = response.split("[INTERVENTION]")
     
     if len(add) > 1 :
-        addToMemory(add[1].split("[REMOVE]")[0].split("[INTERVENTION]")[0])
+        for i in range(len(add[1:-1])):
+            addToMemory(add[i].split("[REMOVE]")[0].split("[INTERVENTION]")[0].replace("```", " "))
 
     if len(remove) > 1 :
-        removeFromMemory(remove[1].split("[ADD]")[0].split("[INTERVENTION]")[0])
+        for i in range(len(remove[1:-1])):
+            removeFromMemory(remove[i].split("[ADD]")[0].split("[INTERVENTION]")[0].replace("```", " "))
 
     if len(intervention) > 1 : 
-        notify(intervention[1].split("[ADD]")[0].split("[REMOVE]")[0])
+        return intervention[1].split("[ADD]")[0].split("[REMOVE]")[0].replace("```", " ")
     

@@ -1,16 +1,11 @@
 import logging
-from os import path
 
+logger = logging.getLogger('Providence')
+logger.setLevel(logging.INFO)
 
-log_file = path.join("ressorces/providence.log")
+handler = logging.FileHandler('ressources/providence.log') 
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
 
-logging.basicConfig(
-    level= logging.INFO,
-    format='[%(asctime)s] %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("ressources/providence.log", mode='a', encoding='utf-8'),
-        logging.StreamHandler()
-    ]
-)
-
-logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+logger.propagate = False

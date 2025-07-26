@@ -10,13 +10,19 @@ from infogetter import getWindowsTitles
 from logger import logger
 from parser import parseResponse, notify, run
 import base64
+from yapper import yap
+from pygame import mixer
 
 logger.info("Initialisation of Providence's Server")
 providence = OllamaAccess.getInstance()
 os.makedirs("temp", exist_ok=True)
 api = Flask(__name__)
 
+yapping = True
+mixer.init()
+
 def cooldown(time, stop_event):
+    """cooldown the right amount of time, but check if a stop condition is set every second"""
     for i in range(time):
         if stop_event.is_set():
             return True
@@ -24,12 +30,21 @@ def cooldown(time, stop_event):
     return False
 
 def eye_in_the_sky(stop_event):
+    """thread handler, fonction that is basicly a spyware but the informations are given to your local ia"""
+    hello = providence.generate(f"{config['username']} just arrived. Say hello ! It's {datetime.now().strftime('%A we are the %d in %B and the clock is currently %H:%M')}, if you have a fact about this date you can share it with {config['username']}, don't make up a fact if there is nothing to tell.", systemPrompt=f"Speak only using : {config['language']}.")
 
-    hello = providence.generate(f"{config['username']} just arrived. Say hello ! It's {datetime.now().strftime('%A we are in %B and the clock is currently %H:%M:%S')}")
-    if not "[INTERVENTION]" in hello:
+    if yapping :
+        audio = yap(hello)
+        mixer.music.load(audio)
         notify(hello)
+        mixer.music.play()
+        while mixer.music.get_busy():
+            continue
+        os.remove(audio)
+        os.remove("audio_outputs/tmp.wav")
     else:
-        parseResponse(hello)
+        notify(hello)
+
     logger.info(f"AI : {hello}")
 
     if cooldown(90, stop_event):
@@ -52,11 +67,24 @@ def eye_in_the_sky(stop_event):
         else :
             img = None
         
-        prompt = f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {textlu} | Analyse the image given"
+        prompt = f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {textlu}"
 
         response = providence.generate(prompt, images=img)
-        parseResponse(response)
-
+        intervention = parseResponse(response)
+        
+        if intervention :
+            if yapping :
+                audio = yap(intervention)
+                mixer.music.load(audio)
+                notify(intervention)
+                mixer.music.play()
+                while mixer.music.get_busy():
+                    continue
+                os.remove(audio)
+                os.remove("audio_outputs/tmp.wav")
+            else:
+                notify(intervention)
+            
         os.remove(filename)
 
         logger.info(f"USER : {prompt}\n\nAI : {response}")
@@ -68,10 +96,11 @@ stop_event = threading.Event()
 capture_thread = None
 
 def run_flask():
-    api.run(port=config["apiport"])
+    api.run(port=config["apiport"], debug=True, use_reloader=False)
 
 @api.route("/eyelaunch", methods=['POST'])
 def launchEvent():
+    """initialize the providence spying capabilities"""
     global capture_thread
 
     if capture_thread and capture_thread.is_alive():
@@ -87,6 +116,7 @@ def launchEvent():
 
 @api.route("/eyestop", methods=['POST'])
 def stopEvent():
+    """safly end providence's eyes thread."""
     if stop_event.is_set():
         return "Providence's eyes are already closed.\n"
     stop_event.set()
@@ -94,10 +124,26 @@ def stopEvent():
     logger.info("Providence's eyes closed\n")
     return "Providence's eyes closed\n"
 
+@api.route("/toggleyapping", methods=['POST'])
+def toggleYappingEvent():
+    """Toggle speaking capabilities"""
+    yapping = not yapping
+
+    if mixer.music.get_busy() :
+        mixer.music.stop()
+    
+    return "Providence's eyes closed\n"
+
+
 @api.route('/shutdown', methods=['POST'])
 def shutdown():
-    stop_event.set()
-    run(["kill", str(os.getpid())])
+    """Close the pyhton process"""
+    if not stop_event.is_set():
+        stop_event.set()
+        capture_thread.join()
+        logger.info("Providence's eyes closed\n")
+
+    run(["kill", "-9", str(os.getpid())])
     return 'Server shutting down...\n'
 
 

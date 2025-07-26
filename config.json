@@ -1,9 +1,9 @@
 {
     "ainame" : "Providence",
-    "username" : "User",
+    "username" : "JoKSo",
     "model" : "gemma3:4b",
     "contextwindow": 128000,
     "vision": true,
     "apiport": "5000",
-    "language" : "english"
+    "language" : "française"
 }

@@ -16,9 +16,14 @@ def addToMemory(data):
     write()
 
 def removeFromMemory(data):
+    supposition = ""
+    for char in data:
+        if char.isdigit():
+            supposition += char
+
     for key, value in memory.items():
-        ratio = fuzz.ratio(value.strip().lower(), data.strip().lower())
-        if ratio >= 75:
+
+        if int(supposition) == int(key):
             del memory[key]
             write()
 

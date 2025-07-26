@@ -1,7 +1,6 @@
 import threading
 import json
 import requests
-from tokenizers import Tokenizer
 from math import floor
 from memoriser import memory, addToMemory, removeFromMemory
 from logger import logger
@@ -12,8 +11,6 @@ with open("config.json", "r", encoding="utf-8") as f:
 
 with open(f"ressources/systemprompt.txt", "r", encoding="utf-8") as file:
     sys_prompt = file.read().replace("$ainame", config["ainame"]).replace("$username", config["username"]).replace("$language", config['language'])
-
-tokenizer = Tokenizer.from_file(f"./ressources/{config['model'].split(':')[0]}-tokenizer.json")
 
 class OllamaAccess :
     """ The Object that treat interaction with the LLM. 
@@ -51,9 +48,10 @@ class OllamaAccess :
             systemPrompt = self.updateSystemPrompt(systemPrompt)
 
             # Construire le prompt complet
-            conversation = "\n".join(self.history + [f"{config['username']}: {prompt}"])
-            
-            if len(tokenizer.encode(f"{systemPrompt} {conversation}")) > int(config['contextwindow']) :
+            conversation = "\n".join(["Current History of your messages :\n ["] + self.history + ["]"] + [f"Informations fetched on {config['username']}'s screen and other sources : [{prompt}]"])
+            #conversation = "\n".join([f"{config['username']}: {prompt}"]) #history disable if this line is used
+
+            if len(f"{systemPrompt} {conversation}".split()) > (int(config['contextwindow']) // 2):
                 conversation = self.tronkHistory(prompt)
 
             payload = {
@@ -69,7 +67,7 @@ class OllamaAccess :
                 text = response.json()["response"].strip()
                 
                 # update history
-                self.history.append(f"HISTORY {self.model.upper()}: {text}")
+                self.history.append(f"HISTORY {config['ainame'].upper()}: {text}")
                 return text
             else:
                 raise Exception(f"Error Ollama API: {response.text}")
@@ -83,12 +81,11 @@ class OllamaAccess :
     def updateSystemPrompt(self, sysprompt: str) -> str:
         """ Update the system prompt with the current memory """
 
-        #restructuration de la memoire en un str
+        #restructuration of memory in a string
         data : str = ""
-        """ MEMORY IS DISABLE FOR THE MOMENT
-        for value in self.memory.values() :
-            data += value + " "
-        """
+        
+        for key, value in self.memory.items() :
+            data += f"[{key} : {value}], "
 
-        return f"{sysprompt} {data}"
+        return f"{sysprompt} Informations saved in memory are : [{data}]"
     

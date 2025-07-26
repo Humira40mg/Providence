@@ -6,3 +6,6 @@ pyautogui
 fuzzywuzzy
 python-Levenshtein
 flask
+torch
+pygame
+langdetect
