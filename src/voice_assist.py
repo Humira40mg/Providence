@@ -93,7 +93,7 @@ def wakeOnWord(event):
             segments, _ = model.transcribe(audio_np, language="fr")
             transcription = " ".join([seg.text for seg in segments])
             logger.info(f"USER SAID: {transcription}")
-            providence.chat(transcription, selfprompt = True)
+            providence.chat(f"{transcription} Utilise le tool Intervention pour répondre, ou indiquer quels autres tools tu utilise.", selfprompt = True)
     
     porcupine.delete()
     stream.close()
