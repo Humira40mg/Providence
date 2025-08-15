@@ -13,11 +13,13 @@ Toutes les **1 minute 30**, il récupère ce que je vois à l'écran et ce que j
 C’est un assistant qui :
 
 * Observe l’écran à intervalles réguliers
-* Lit le texte à l’écran via **OCR** (et vision si le modèle le permet)
+* Lit le texte à l’écran via **OCR**
 * Identifie les fenêtres ouvertes
-* Génère une réaction avec un modèle LLM local (ex : Mistral, Gemma…)
+* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)
 * Parle avec une voix custom (en français, japonais, anglais…)
 * Ne dit rien si y’a rien d’utile à dire
+* Wake on word pour assistance vocal
+* Accès à différents 'tools' comme WebSearch, extraction OCR de l'écran, exécution de commandes dans un terminal ouvert.
 
 ---
 
@@ -49,13 +51,25 @@ sudo pacman -S tesseract libnotify wmctrl
 ```bash
 sudo apt install tesseract-ocr libnotify-bin wmctrl
 ```
-4. Installer correctement [**OpenVoice**](https://github.com/myshell-ai/OpenVoice) dans *"~/OpenVoice/"*.
-Utiliser l'environement conda 'providence' créé plus tôt à la place de crée un nouvel environnement 'openvoice'.
-(installer les checkpoints v1 et v2).
 
-Aussi installer ollama (sinon on ne va pas aller très loin.)
+4. Installer correctement [**OpenVoice**](https://github.com/myshell-ai/OpenVoice) dans *"\~/OpenVoice/"*.
+   Utiliser l'environnement conda 'providence' créé plus tôt au lieu de créer un nouvel environnement 'openvoice'.
+   Installer les checkpoints v1 et v2.
 
-5. Lancer avec :
+Aussi installer Ollama (sinon on ne va pas aller très loin).
+
+5. Créer un fichier `.env` à la racine du projet avec les clés suivantes :
+
+```env
+GOOGLE_API_KEY=ta_clef_google
+GOOGLE_CX=ton_CX_customsearch
+PICOVOICE_KEY=ta_clef_picovoice
+```
+
+* `GOOGLE_API_KEY` et `GOOGLE_CX` : pour le module WebSearch (Google Custom Search).
+* `PICOVOICE_KEY` : pour le wake-on-word via Picovoice.
+
+6. Lancer avec :
 
 ```bash
 ./run.sh
@@ -76,8 +90,8 @@ Providence expose quelques routes Flask :
 
 | Méthode | URL              | Action                              |
 | ------- | ---------------- | ----------------------------------- |
-| POST    | `/eyelaunch`     | Démarre l'observation               |
-| POST    | `/eyestop`       | Stoppe l'observation                |
+| POST    | `/launch`        | Démarre l'observation et l'écoute   |
+| POST    | `/stop`          | Stoppe l'observation et l'écoute    |
 | POST    | `/toggleyapping` | Active/désactive la synthèse vocale |
 | POST    | `/shutdown`      | Ferme proprement le serveur Flask   |
 
@@ -95,9 +109,9 @@ Tout est **local** :
 
 ## À venir
 
-* Détection vocale ou hotword
 * Interface de chat
 * Meilleure personnalisation des réactions
+* Changement du TTS
 
 ---
 

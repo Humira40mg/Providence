@@ -1,10 +1,11 @@
-from os import path, makedirs
+from os import path, makedirs, environ
 import torch
 import sys
 from langdetect import detect
 from logger import logger
 
 sys.path.insert(0, path.expanduser("~/OpenVoice"))
+environ["TOKENIZERS_PARALLELISM"] = "false"
 
 from openvoice import se_extractor
 from openvoice.api import ToneColorConverter
@@ -33,6 +34,7 @@ src_path = f'{output_dir}/tmp.wav'
 # Speed is adjustable
 speed = 1.2
 
+yapping = True
 
 def yap(text:str):
     """
@@ -65,7 +67,6 @@ def yap(text:str):
                 tau=0.2,
                 output_path=save_path,
                 message=encode_message)
+            return save_path
     except Exception as e:
         logger.error(e)
-
-    return save_path

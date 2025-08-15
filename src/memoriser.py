@@ -1,6 +1,7 @@
 import json
 from fuzzywuzzy import fuzz
 from os import path, makedirs
+from datetime import datetime
 
 makedirs("data", exist_ok=True)
 
@@ -12,7 +13,7 @@ with open("data/memory.json", "r", encoding="utf-8") as f:
     memory = json.load(f)
 
 def addToMemory(data):
-    memory[len(memory.keys())] = data
+    memory[str(len(memory.keys()))] = {"element":data, "datetime": datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}
     write()
 
 def removeFromMemory(data):
@@ -25,7 +26,9 @@ def removeFromMemory(data):
 
         if int(supposition) == int(key):
             del memory[key]
-            write()
+            break
+    write()
+            
 
 def write():
     with open("data/memory.json", "w", encoding="utf-8") as f:

@@ -1,10 +1,8 @@
-from memoriser import memory, addToMemory, removeFromMemory
+import Tools
 from subprocess import run
 from os import path
 
 icon = path.abspath("ressources/providence.png")
-
-balises = ["[ADD]", "[REMOVE]", "[INTERVENTION]"]
 
 def notify(msg):
     run([
@@ -14,27 +12,17 @@ def notify(msg):
             msg
         ])
 
-def parseResponse(response: str):
-    balised = False
-    for balise in balises:
-        if balise in response:
-            balised = True
-            break
-    
-    if not balised : return
-    
-    add = response.split("[ADD]")
-    remove = response.split("[REMOVE]")
-    intervention = response.split("[INTERVENTION]")
-    
-    if len(add) > 1 :
-        for i in range(len(add[1:-1])):
-            addToMemory(add[i].split("[REMOVE]")[0].split("[INTERVENTION]")[0].replace("```", " "))
+def parseEyeResponse(response: dict):
+    """exemple: 'tool_calls': [{'function': {'name': 'AddToMemory', 'arguments': {'aichoice': '03 en août et 18:12'}}}]"""
+    if not response.get('tool_calls') : return
 
-    if len(remove) > 1 :
-        for i in range(len(remove[1:-1])):
-            removeFromMemory(remove[i].split("[ADD]")[0].split("[INTERVENTION]")[0].replace("```", " "))
-
-    if len(intervention) > 1 : 
-        return intervention[1].split("[ADD]")[0].split("[REMOVE]")[0].replace("```", " ")
+    recursiveprompt = []
     
+    for d in response['tool_calls']:
+        tool = getattr(Tools, d['function']['name'])
+        args = d['function'].get('arguments')
+        arg = args.get('aichoice')
+        result = tool().activate(args.get('aichoice'))
+        if result: recursiveprompt.append(result)
+    
+    return "\n".join(recursiveprompt)

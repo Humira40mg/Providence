@@ -7,6 +7,11 @@ conda activate providence
 # app launch
 python3 src/main.py &
 
+conda deactivate
+
+
 sleep 15s
 
-curl -X POST http://localhost:5000/eyelaunch
+if [ "$(cat /sys/class/power_supply/ADP1/online)" = "1" ]; then
+    curl -X POST http://localhost:5000/launch
+fi

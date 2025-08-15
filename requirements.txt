@@ -9,3 +9,9 @@ flask
 torch
 pygame
 langdetect
+pvporcupine
+dotenv
+pyaudio
+webrtcvad
+sounddevice
+beautifulsoup4
