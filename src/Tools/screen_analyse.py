@@ -14,7 +14,7 @@ class ScreenAnalyse(Tool):
     description = "Call this to get an OCR extraction of what the user is seeing."
     hidden = "Eyes"
 
-    def activate(self, *args) -> str:
+    def activate(self, *args) -> dict:
        
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = path.join(f"temp/screenshot_{timestamp}.png")
@@ -28,7 +28,7 @@ class ScreenAnalyse(Tool):
 
         remove(filename)
 
-        return ocr
+        return {"role":"tool", "content":ocr, "tool_name":"ScreenAnalyse"}
         
         """
         with open(path.abspath(filename), "rb") as f:

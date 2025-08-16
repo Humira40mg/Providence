@@ -16,7 +16,7 @@ class WebSearch(Tool):
     parameterDescription: str = "What you need to search"
     hidden = "Eyes"
 
-    def activate(self, aichoice: str) -> str: 
+    def activate(self, aichoice: str) -> dict: 
         url = "https://www.googleapis.com/customsearch/v1"
         params = {
             "key": API_KEY,
@@ -55,5 +55,5 @@ class WebSearch(Tool):
 
             results.append(f"{title}\n{snippet}\n{link}\nContenu:\n{text_preview}\n{'-'*50}")
 
-        return "\n".join(results)
+        return {"role":"tool", "content":"\n".join(results), "tool_name":"WebSearch"}
 

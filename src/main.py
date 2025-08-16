@@ -40,7 +40,7 @@ def cooldown(time, stop_event):
 
 def eye_in_the_sky(stop_event):
     """thread handler, fonction that is basicly a spyware but the informations are given to your local ia"""
-    providence.chat(f"{config['username']} viens de d'allumé son pc. Passe lui le bonjour en utilisant la fonction d'intervention ! Il est {datetime.now().strftime('%A nous sommes le %d en %B et il est actuellement %H:%M')}.")
+    providence.chat(f"{config['username']} est là. Passe lui le bonjour en utilisant la fonction d'intervention ! Il est {datetime.now().strftime('%A nous sommes le %d en %B et il est actuellement %H:%M')}.")
 
     if cooldown(120, stop_event):
         return
@@ -48,8 +48,8 @@ def eye_in_the_sky(stop_event):
     while not stop_event.is_set() :
 
         output = ScreenAnalyse().activate()
-        prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nDate: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {output}"
-        providence.chat(prompt, hiddenTools="Eyes", think = True)
+        prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nDate: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {output['content']}"
+        providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"])
 
         if cooldown(120, stop_event):
             return

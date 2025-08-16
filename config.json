@@ -1,7 +1,8 @@
 {
     "ainame" : "Providence",
     "username" : "JoKSo",
-    "model" : "qwen3",
+    "model" : "qwen3:4b-instruct",
+    "thinking":false,
     "contextwindow": 40000,
     "vision": false,
     "apiport": "5000",

@@ -25,4 +25,4 @@ def parseEyeResponse(response: dict):
         result = tool().activate(args.get('aichoice'))
         if result: recursiveprompt.append(result)
     
-    return "\n".join(recursiveprompt)
+    return recursiveprompt

@@ -12,10 +12,10 @@ class Intervention(Tool):
     description = "Call this to notify the user with a usefull information, advice or fun fact."
     parameterDescription: str = "The sentence to tell to the user."
 
-    def activate(self, aichoice: str) -> str:
+    def activate(self, aichoice: str) -> dict:
         global last_intervention
         
-        if aichoice == last_intervention : return ""
+        if aichoice == last_intervention : return None
         last_intervention = aichoice
        
         if yapping :
@@ -31,4 +31,4 @@ class Intervention(Tool):
                 return
         notify(aichoice)
         
-        return ""
+        return None

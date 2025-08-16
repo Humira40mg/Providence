@@ -7,6 +7,6 @@ class RemoveFromMemory(Tool):
     description = "Call this to remove an element to your long term memory."
     parameterDescription: str = "The integer key related to the element to remove."
 
-    def activate(self, aichoice: str) -> str:
+    def activate(self, aichoice: str) -> dict:
         removeFromMemory(aichoice)
-        return ""
+        return None

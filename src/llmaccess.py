@@ -49,19 +49,23 @@ class OllamaAccess :
         return OllamaAccess.__instance
 
 
-    def chat(self, prompt: str, useTools: bool = True, selfprompt: bool= False, hiddenTools: str = "N/A", think = False) -> str:
+    def chat(self, prompt: str, useTools: bool = True, selfprompt: bool= False, hiddenTools: str = "N/A", think = False, toolresponse = None) -> str:
         """ Ask AI with the prompt given. Return the response """
         generationLock.acquire()
         
         systemPrompt = self.updateSystemPrompt(sys_prompt)
-
-        # Construire le prompt complet
-        self.history.append({"role": "user", "content": prompt})
+        
+        if not toolresponse :
+            # Construire le prompt complet
+            self.history.append({"role": "user", "content": prompt})
+            logger.info({"role": "user", "content": prompt})
+        elif len(toolresponse) > 0:
+            for response in toolresponse:
+                self.history.append(response)
+                logger.info(response)
 
         if len(f"{systemPrompt} {str(self.history)}".split()) > (int(config['contextwindow']) // 2):
             self.tronkHistory()
-
-        logger.info({"role": "user", "content": prompt})
         
         payload = {
                 "model": self.model,
@@ -89,9 +93,9 @@ class OllamaAccess :
                 if generationLock.locked() :
                     generationLock.release()
 
-                if not selfprompt or not recursiveanswer or (recursiveanswer and len(recursiveanswer) < 20) : return
+                if not selfprompt or len(recursiveanswer) == 0 : return
                 
-                self.chat(f"Voici les réponses données par les outils appelés :\n {recursiveanswer}. Tu peux maintenant répondre avec en utilisant la fonction d'intervention pour répondre à la question original {prompt}.")
+                self.chat("", toolresponse=recursiveanswer)
 
             except ValueError:
                 logger.error("Error : non JSON response")

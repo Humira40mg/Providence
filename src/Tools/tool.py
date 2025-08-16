@@ -7,7 +7,7 @@ class Tool(ABC):
     hidden: str = "N/A"
 
     @abstractmethod
-    def activate(self, iachoice: str) -> str:
+    def activate(self, iachoice: str) -> dict:
         pass
 
     def ollamaFormat(self):

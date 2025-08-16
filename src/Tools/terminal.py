@@ -1,6 +1,7 @@
 import subprocess
 from .tool import Tool
 from os import kill
+from time import sleep
 
 subprocess.run(["tmux", "new-session", "-d", "-s", "iasession"])
 subprocess.run(["tmux", "send-keys", "-t", "iasession", "cd ~", "C-m"])
@@ -17,10 +18,10 @@ class Terminal(Tool):
 
     name = "Terminal"
     description = "Call this to run an Arch Linux command in an open terminal."
-    parameterDescription: str = "The command to run. Add '&' if you want to open an executable."
+    parameterDescription: str = "The command to run. If you launch an application like spotify or firefox, use & to launch it in background."
     hidden = "Eyes"
 
-    def activate(self, aichoice: str) -> str:
+    def activate(self, aichoice: str) -> dict:
         global actual_pid
 
         if not actual_pid or not is_running(actual_pid) :
@@ -28,4 +29,12 @@ class Terminal(Tool):
             actual_pid = proc.pid
 
         subprocess.run(["tmux", "send-keys", "-t", "iasession", aichoice, "C-m"])
-        return ""
+
+        sleep(0.2)
+
+        result = subprocess.run(
+            ["tmux", "capture-pane", "-t", "iasession", "-p"],
+            capture_output=True,
+            text=True
+        )
+        return {"role":"tool", "content":str(result.stdout), "tool_name":"Terminal"}

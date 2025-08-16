@@ -7,6 +7,6 @@ class AddToMemory(Tool):
     description = "Call this to add a key element to your long term memory (exemple: informations on the user)"
     parameterDescription: str = "The key elements to add to memory."
 
-    def activate(self, aichoice: str) -> str:
+    def activate(self, aichoice: str) -> dict:
         addToMemory(aichoice)
-        return ""
+        return None
