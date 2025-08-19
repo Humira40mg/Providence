@@ -2,7 +2,7 @@ from flask import Flask, request
 from llmaccess import OllamaAccess, config
 from time import sleep
 from datetime import datetime
-import os
+from os import makedirs, walk, remove, path, getpid
 from infogetter import getWindowsTitles
 from logger import logger
 from parser import run
@@ -16,13 +16,13 @@ import requests
 
 logger.info("Initialisation of Providence's Server")
 providence = OllamaAccess.getInstance()
-os.makedirs("temp", exist_ok=True)
+makedirs("temp", exist_ok=True)
 
 
 #flush the temp directory
-for root, dirs, files in os.walk("./temp"):
+for root, dirs, files in walk("./temp"):
     for file in files:
-        os.remove(os.path.join(root, file))
+        remove(path.join(root, file))
 
 
 api = Flask(__name__)
@@ -49,7 +49,7 @@ def eye_in_the_sky(stop_event):
 
         output = ScreenAnalyse().activate()
         prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nDate: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {output['content']}"
-        providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"])
+        providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"], images = output["images"])
 
         if cooldown(120, stop_event):
             return
@@ -139,7 +139,7 @@ def shutdown():
         pass
 
     finally:
-        run(["kill", "-9", str(os.getpid())])
+        run(["kill", "-9", str(getpid())])
         return 'Server shutting down...\n'
 
 

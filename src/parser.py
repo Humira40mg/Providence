@@ -14,7 +14,7 @@ def notify(msg):
 
 def parseEyeResponse(response: dict):
     """exemple: 'tool_calls': [{'function': {'name': 'AddToMemory', 'arguments': {'aichoice': '03 en août et 18:12'}}}]"""
-    if not response.get('tool_calls') : return
+    if not response.get('tool_calls') : return []
 
     recursiveprompt = []
     

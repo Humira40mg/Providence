@@ -6,10 +6,7 @@ from memoriser import memory, addToMemory, removeFromMemory
 from logger import logger
 import Tools
 from parser import parseEyeResponse
-
-#Getting the conf:
-with open("config.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
+from config_read import config
 
 with open(f"ressources/systemprompt.txt", "r", encoding="utf-8") as file:
     sys_prompt = file.read().replace("$ainame", config["ainame"]).replace("$username", config["username"]).replace("$language", config['language'])
@@ -49,7 +46,7 @@ class OllamaAccess :
         return OllamaAccess.__instance
 
 
-    def chat(self, prompt: str, useTools: bool = True, selfprompt: bool= False, hiddenTools: str = "N/A", think = False, toolresponse = None) -> str:
+    def chat(self, prompt: str, useTools: bool = True, selfprompt: bool= False, hiddenTools: str = "N/A", think = False, toolresponse = None, images: list = None) -> str:
         """ Ask AI with the prompt given. Return the response """
         generationLock.acquire()
         
@@ -71,6 +68,7 @@ class OllamaAccess :
                 "model": self.model,
                 "messages": [{"role": "system", "content": systemPrompt}] + self.history,
                 "think": think,
+                "images": images,
                 "stream": False
             }
         

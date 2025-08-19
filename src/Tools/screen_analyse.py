@@ -7,11 +7,39 @@ from pytesseract import image_to_string
 from generationlock import generationLock
 import base64
 import requests
+from config_read import config
+
+desc = "Call this to get an OCR extraction of what the user is seeing."
+if config["vision"] :
+    desc = "Call this to get a screenshot of what the user is seeing."
+
+def analyse_factory():
+
+    if config["vision"]:
+        
+        def vision(filename):
+            with open(path.abspath(filename), "rb") as f:
+                img = [base64.b64encode(f.read()).decode("utf-8")]
+            remove(filename)
+            return {"role":"tool", "content":"", "images":[img], "tool_name":"ScreenAnalyse"}
+            
+        return vision
+
+    def ocr(filename):
+        img = Image.open(filename)
+        content = f"OCR Extraction of the screen : {image_to_string(img)}"
+        remove(filename)
+        return {"role":"tool", "content":content, "images": None, "tool_name":"ScreenAnalyse"}
+
+    return ocr
+        
+analyse = analyse_factory()   
+
 
 class ScreenAnalyse(Tool):
 
     name = "ScreenAnalyse"
-    description = "Call this to get an OCR extraction of what the user is seeing."
+    description = desc
     hidden = "Eyes"
 
     def activate(self, *args) -> dict:
@@ -22,36 +50,8 @@ class ScreenAnalyse(Tool):
         screenshot = pyautogui.screenshot()
         screenshot.save(filename)
 
-        #OCR
-        img = Image.open(filename)
-        ocr = f"OCR Extraction of the screen : {image_to_string(img)}"
-
-        remove(filename)
-
-        return {"role":"tool", "content":ocr, "tool_name":"ScreenAnalyse"}
+        return analyse(filename)
         
-        """
-        with open(path.abspath(filename), "rb") as f:
-            img = [base64.b64encode(f.read()).decode("utf-8")]
-
-        remove(filename)
-
-        with generationLock :
-            payload = {
-                "model": "gemma3:4b",
-                "prompt": "Décris avec précision la capture d'écran donnée sans halluciner.",
-                "images": img,
-                "stream": False
-            }
-
-            response = requests.post(f"http://localhost:11434/api/generate", json=payload)
-            if response.ok:
-                text = response.json()["response"].strip()
-
-                return f"Screen Description : [ {text} ]\nOCR Extraction : [ {ocr} ]"
-            else:
-                raise Exception(f"Error Ollama API: {response.text}")
-        """
 
     def ollamaFormat(self):
         return {
