@@ -17,7 +17,9 @@ class Intervention(Tool):
         
         if aichoice == last_intervention : return None
         last_intervention = aichoice
-       
+
+        aichoice = aichoice.replace("*", "")
+        
         if yapping :
             audio = yap(aichoice)
             if audio:
