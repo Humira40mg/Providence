@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Providence</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='marked.min.js') }}"></script>
+</head>
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='providence.png') }}" alt="logo">
+    <h1>Providence</h1>
+  </header>
+
+  <div class="chat-container">
+    <div class="messages" id="messages">
+      {% for msg in messages %}
+        <div class="message {{ msg.role }}">{{ msg.content }}</div>
+      {% endfor %}
+    </div>
+    <div class="input-container">
+      <textarea id="userInput" placeholder="Demande de l'aide à Providence ..."></textarea>
+      <button onclick="sendMessage()">✔</button>
+    </div>
+  </div>
+</body>
+</html>

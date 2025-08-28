@@ -20,6 +20,7 @@ C’est un assistant qui :
 * Ne dit rien si y’a rien d’utile à dire
 * Wake on word pour assistance vocal
 * Accès à différents 'tools' comme WebSearch, extraction OCR de l'écran, exécution de commandes dans un terminal ouvert.
+* Peut échanger dans un web-ui sur http://localhost:5000 (ou le port choisi dans config)
 
 ---
 
@@ -109,7 +110,6 @@ Tout est **local** :
 
 ## À venir
 
-* Interface de chat
 * Meilleure personnalisation des réactions
 * Changement du TTS
 

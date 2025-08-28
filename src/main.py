@@ -1,5 +1,6 @@
-from flask import Flask, request
-from llmaccess import OllamaAccess, config
+from flask import Flask, request, Response, render_template
+from flask_cors import CORS
+from llmaccess import OllamaAccess, config, texthistory
 from time import sleep
 from datetime import datetime
 from os import makedirs, walk, remove, path, getpid
@@ -24,8 +25,10 @@ for root, dirs, files in walk("./temp"):
     for file in files:
         remove(path.join(root, file))
 
+BASE_DIR = path.abspath(path.join(path.dirname(__file__), ".."))
+api = Flask(__name__, template_folder=path.join(BASE_DIR, "web-ui"), static_folder=path.join(BASE_DIR, "web-ui/static"))
+CORS(api)
 
-api = Flask(__name__)
 mixer.init()
 
 
@@ -40,7 +43,7 @@ def cooldown(time, stop_event):
 
 def eye_in_the_sky(stop_event):
     """thread handler, fonction that is basicly a spyware but the informations are given to your local ia"""
-    providence.chat(f"{config['username']} est là. Passe lui le bonjour en utilisant la fonction d'intervention ! Il est {datetime.now().strftime('%A nous sommes le %d en %B et il est actuellement %H:%M')}.")
+    providence.chat(f"{config['username']} est là. Passe lui le bonjour en utilisant la fonction d'intervention ! Il est {datetime.now().strftime('%A nous sommes le %d en %B et il est actuellement %H:%M')}.", notextlog=True)
 
     if cooldown(120, stop_event):
         return
@@ -49,7 +52,7 @@ def eye_in_the_sky(stop_event):
 
         output = ScreenAnalyse().activate()
         prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nDate: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {output['content']}"
-        providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"], images = output["images"])
+        providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"], images = output["images"], notextlog=True)
 
         if cooldown(120, stop_event):
             return
@@ -141,6 +144,21 @@ def shutdown():
     finally:
         run(["kill", "-9", str(getpid())])
         return 'Server shutting down...\n'
+
+
+@api.route("/")
+def index():
+    return render_template("index.html", messages=texthistory)
+
+
+@api.route("/chat", methods=["POST"])
+def chat():
+    data = request.get_json()
+    user_message = data.get("message", "")
+
+    generate = providence.textchat(user_message, selfprompt= True)
+
+    return Response(generate(), mimetype="text/plain")
 
 
 if __name__ == "__main__":
