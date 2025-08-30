@@ -35,7 +35,8 @@ async function sendMessage() {
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder("utf-8");
-
+    let currentMsg = ""
+    
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -53,7 +54,8 @@ async function sendMessage() {
 
       if (chunk?.message?.content) {
         toolstips.innerHTML = ""
-        aiMsg.innerHTML += chunk.message.content;
+        currentMsg += chunk.message.content;
+        aiMsg.innerHTML = marked.parse(currentMsg);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
       } else {
         console.warn("Chunk sans content :", chunk);
@@ -67,7 +69,6 @@ async function sendMessage() {
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
       }
     }
-    aiMsg.innerHTML = marked.parse(aiMsg.innerHTML);
 
   } catch (err) {
     console.error(err);
