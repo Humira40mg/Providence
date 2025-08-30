@@ -4,7 +4,7 @@ from os import kill
 from time import sleep
 
 subprocess.run(["tmux", "new-session", "-d", "-s", "iasession"])
-subprocess.run(["tmux", "send-keys", "-t", "iasession", "cd ~", "C-m"])
+subprocess.run(["tmux", "send-keys", "-t", "iasession", "cd ~ && clear", "C-m"])
 actual_pid = None
 
 def is_running(pid):

@@ -118,3 +118,19 @@ Tout est **local** :
 ## Licence
 
 MIT — Utilisation libre. Forks bienvenus.
+
+---
+
+## Screenshots:
+
+**Fenêtre du Web-UI**
+![](screenshots/web-ui.png)
+
+**Utilisation de tools dans le Web-UI**
+![](screenshots/tooluse.png)
+
+**Utilisation du terminal**
+![](screenshots/terminaluse.png)
+
+**Petite démonstration**
+[![Providence - Démonstration](https://img.youtube.com/vi/LHWOTD2FwDo/hqdefault.jpg)](https://www.youtube.com/watch?v=LHw0TD2FwDo)
