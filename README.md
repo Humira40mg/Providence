@@ -15,12 +15,12 @@ C’est un assistant qui :
 * Observe l’écran à intervalles réguliers
 * Lit le texte à l’écran via **OCR**
 * Identifie les fenêtres ouvertes
-* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)
-* Parle avec une voix custom (en français, japonais, anglais…)
-* Ne dit rien si y’a rien d’utile à dire
-* Wake on word pour assistance vocal
+* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)(Actuellement j'utilise Granite4)
+* Parle avec une voix custom (en français, anglais, japonais…)
+* Ne dit rien si il n’y a rien d’utile à dire
+* Wake on word pour assistance vocal (Providence)
 * Accès à différents 'tools' comme WebSearch, extraction OCR de l'écran, exécution de commandes dans un terminal ouvert.
-* Peut échanger dans un web-ui sur http://localhost:5000 (ou le port choisi dans config)
+* Peut échanger dans un web-ui sur http://localhost:4242 (ou le port choisi dans config)
 
 ---
 
@@ -134,3 +134,6 @@ MIT — Utilisation libre. Forks bienvenus.
 
 **Petite démonstration**
 [![Providence - Démonstration](https://img.youtube.com/vi/LHWOTD2FwDo/hqdefault.jpg)](https://www.youtube.com/watch?v=LHw0TD2FwDo)
+
+**Autres exemples d'utilisation**
+![](screenshots/usecase-exemple.png)

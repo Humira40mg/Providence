@@ -2,7 +2,6 @@ from flask import Flask, request, Response, render_template
 from flask_cors import CORS
 from llmaccess import OllamaAccess, config, texthistory
 from time import sleep
-from datetime import datetime
 from os import makedirs, walk, remove, path, getpid
 from infogetter import getWindowsTitles
 from logger import logger
@@ -43,7 +42,7 @@ def cooldown(time, stop_event):
 
 def eye_in_the_sky(stop_event):
     """thread handler, fonction that is basicly a spyware but the informations are given to your local ia"""
-    providence.chat(f"{config['username']} est là. Passe lui le bonjour en utilisant la fonction d'intervention ! Il est {datetime.now().strftime('%A nous sommes le %d en %B et il est actuellement %H:%M')}.", notextlog=True)
+    providence.chat(f"{config['username']} est là. Présente lui tes salutations en fonction du contexte temporel donné en system prompt. Utilise la fonction d'intervention !", notextlog=True)
 
     if cooldown(120, stop_event):
         return
@@ -51,7 +50,7 @@ def eye_in_the_sky(stop_event):
     while not stop_event.is_set() :
 
         output = ScreenAnalyse().activate()
-        prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nDate: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B')}\nOpened Applications: {getWindowsTitles()} {output['content']}"
+        prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nOpened Applications: {getWindowsTitles()} {output['content']}"
         providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"], images = output["images"], notextlog=True)
 
         if cooldown(120, stop_event):

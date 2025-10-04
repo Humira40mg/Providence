@@ -7,6 +7,7 @@ from logger import logger
 import Tools
 from parser import parseEyeResponse
 from config_read import config, texthistory
+from datetime import datetime
 
 with open(f"ressources/systemprompt.txt", "r", encoding="utf-8") as file:
     sys_prompt = file.read().replace("$ainame", config["ainame"]).replace("$username", config["username"]).replace("$language", config['language'])
@@ -52,7 +53,7 @@ class OllamaAccess :
         """ Ask AI with the prompt given. Return the response """
         generationLock.acquire()
         
-        systemPrompt = self.updateSystemPrompt(sys_prompt)
+        systemPrompt = self.updateSystemPrompt(sys_prompt).replace("$date", datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B'))
         
         if not toolresponse :
             # Construire le prompt complet
@@ -129,7 +130,7 @@ class OllamaAccess :
         generationLock.acquire()  # Bloque pour éviter génération simultanée
 
         try:
-            systemPrompt = self.updateSystemPrompt(sys_prompt)
+            systemPrompt = self.updateSystemPrompt(sys_prompt).replace("$date", datetime.now().strftime('%Y-%m-%d %H:%M:%S %A %B'))
 
             # Construction de l'historique
             if not toolresponse:

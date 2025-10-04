@@ -12,5 +12,5 @@ if [ "$(cat /sys/class/power_supply/ADP1/online)" = "1" ]; then
 
     sleep 15s
 
-    curl -X POST http://localhost:5000/launch
+    curl -X POST http://localhost:4242/launch
 fi
