@@ -11,6 +11,7 @@ from logger import logger
 import sounddevice as sd
 from llmaccess import OllamaAccess
 from parser import notify
+from threading import Thread
 
 load_dotenv()
 
@@ -74,7 +75,7 @@ def listen_until_silence():
 
     return b"".join(audio_data)
 
-def wakeOnWord(event):
+def wakeOnWord(event, yappatron):
     while not event.is_set():
         pcm = get_next_frame()
         keyword_index = porcupine.process(pcm)
@@ -82,6 +83,9 @@ def wakeOnWord(event):
         if keyword_index >= 0:
             logger.info("Wakeword detected → listening...")
             notify("J'écoute...")
+            
+            if yappatron.get_busy() :
+                yappatron.stop()
             
             audio_chunk = listen_until_silence()
 
@@ -93,8 +97,9 @@ def wakeOnWord(event):
             segments, _ = model.transcribe(audio_np, language="fr")
             transcription = " ".join([seg.text for seg in segments])
             logger.info(f"USER SAID: {transcription}")
-            providence.chat(f"{transcription} (Utilise le tool Intervention pour répondre, ou indiquer quels autres tools tu utilise.)", selfprompt = True)
-    
+            
+            Thread(target=providence.chat, args=(f"{transcription} (Utilise le tool Intervention pour répondre, ou indiquer quels autres tools tu utilise.)", True, True)).start()
+            
     porcupine.delete()
     stream.close()
     pa.terminate()

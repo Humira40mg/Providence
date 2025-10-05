@@ -6,7 +6,7 @@ from os import makedirs, walk, remove, path, getpid
 from infogetter import getWindowsTitles
 from logger import logger
 from parser import run
-from yapper import yap, yapping
+from yapper import yap, is_yapping, toggle_yapping
 from pygame import mixer
 from Tools import ScreenAnalyse
 import threading
@@ -78,7 +78,7 @@ def launchEvent():
     capture_thread = threading.Thread(target=eye_in_the_sky, args=(stop_event,))
     capture_thread.daemon = True
 
-    vocal_thread = threading.Thread(target=wakeOnWord, args=(stop_event,))
+    vocal_thread = threading.Thread(target=wakeOnWord, args=(stop_event, mixer.music))
     vocal_thread.daemon = True
 
     capture_thread.start()
@@ -114,7 +114,7 @@ def stopEvent():
 @api.route("/toggleyapping", methods=['POST'])
 def toggleYappingEvent():
     """Toggle speaking capabilities"""
-    yapping = not yapping
+    toggle_yapping()
 
     if mixer.music.get_busy() :
         mixer.music.stop()
@@ -128,6 +128,10 @@ def shutdown():
     try:
         if not stop_event.is_set():
             stop_event.set()
+            
+            if mixer.music.get_busy() :
+                mixer.music.stop()
+
             capture_thread.join()
             vocal_thread.join()
             logger.info("Providence's eyes closed\n")
@@ -147,7 +151,7 @@ def shutdown():
 
 @api.route("/")
 def index():
-    return render_template("index.html", messages=texthistory)
+    return render_template("index.html", messages=texthistory, yapping=is_yapping())
 
 
 @api.route("/chat", methods=["POST"])

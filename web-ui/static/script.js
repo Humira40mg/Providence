@@ -93,3 +93,12 @@ userInput.addEventListener("keydown", (e) => {
 document.querySelectorAll('.message').forEach(el => {
   el.innerHTML = marked.parse(el.innerHTML); // parse Markdown en HTML
 });
+
+const toggle = document.getElementById("yappingToggle");
+let yapping = toggle.checked;
+
+toggle.addEventListener("change", () => {
+  yapping = toggle.checked;
+  console.log("Yapping mode:", yapping);
+  fetch("/toggleyapping", {method:"POST"});
+});

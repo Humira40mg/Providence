@@ -1,9 +1,9 @@
 {
     "ainame" : "Providence",
     "username" : "JoKSo",
-    "model" : "granite4:tiny-h",
+    "model" : "qwen3:4b-instruct",
     "thinking":false,
-    "contextwindow": 1000000,
+    "contextwindow": 40000,
     "vision": false,
     "apiport": "4242",
     "language" : "français"

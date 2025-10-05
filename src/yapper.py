@@ -34,7 +34,18 @@ src_path = f'{output_dir}/tmp.wav'
 # Speed is adjustable
 speed = 1.2
 
+# --- yapping ---
 yapping = True
+
+def is_yapping():
+    return yapping
+
+def toggle_yapping():
+    global yapping
+    yapping = not yapping
+
+
+
 
 def yap(text:str):
     """

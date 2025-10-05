@@ -1,5 +1,5 @@
 from .tool import Tool
-from yapper import yap, yapping
+from yapper import yap, is_yapping
 from pygame import mixer
 from parser import notify
 from os import remove
@@ -23,7 +23,7 @@ class Intervention(Tool):
         texthistory.append({"role":"assistant", "content":aichoice})
         aichoice = aichoice.replace("*", "")
         
-        if yapping :
+        if is_yapping() :
             audio = yap(aichoice)
             if audio:
                 mixer.music.load(audio)

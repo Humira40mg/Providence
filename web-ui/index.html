@@ -9,8 +9,18 @@
 </head>
 <body>
   <header>
-    <img src="{{ url_for('static', filename='providence.png') }}" alt="logo">
-    <h1>Providence</h1>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="{{ url_for('static', filename='providence.png') }}" alt="logo">
+      <h1>Providence</h1>
+    </div>
+    <!-- Toggle Switch avec icône volume -->
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <p class=white>&#128365;</p>
+      <label class="switch">
+        <input type="checkbox" id="yappingToggle" {% if yapping %}checked{% endif %}>
+        <span class="slider"></span>
+      </label>
+    </div>
   </header>
 
   <div class="chat-container">

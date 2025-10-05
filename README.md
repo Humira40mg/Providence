@@ -15,7 +15,7 @@ C’est un assistant qui :
 * Observe l’écran à intervalles réguliers
 * Lit le texte à l’écran via **OCR**
 * Identifie les fenêtres ouvertes
-* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)(Actuellement j'utilise Granite4)
+* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)(Actuellement j'utilise qwen3:4b-instruct)
 * Parle avec une voix custom (en français, anglais, japonais…)
 * Ne dit rien si il n’y a rien d’utile à dire
 * Wake on word pour assistance vocal (Providence)
