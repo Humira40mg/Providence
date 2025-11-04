@@ -28,7 +28,7 @@ async function sendMessage() {
 
   try {
     const response = await fetch("/chat", {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text })
     });
