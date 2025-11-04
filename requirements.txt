@@ -16,3 +16,4 @@ webrtcvad
 sounddevice
 beautifulsoup4
 flask_cors
+pyyaml

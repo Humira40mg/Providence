@@ -12,15 +12,15 @@ import sounddevice as sd
 from llmaccess import OllamaAccess
 from parser import notify
 from threading import Thread
+from config_read import PICOVOICE_KEY
 
 load_dotenv()
 
 # ---------- CONFIG ----------
-access_key = os.getenv("PICOVOICE_KEY")
 sd.default.device = (0, None)  # (input, output)
 providence = OllamaAccess.getInstance()
-KEYWORD_PATH = os.path.abspath("ressources/Providence_fr_linux_v3_0_0.ppn")
-MODEL_PATH = os.path.abspath("ressources/porcupine_params_fr.pv")
+KEYWORD_PATH = os.path.abspath("resources/Providence_fr_linux_v3_0_0.ppn")
+MODEL_PATH = os.path.abspath("resources/porcupine_params_fr.pv")
 SILENCE_LIMIT = 0.6  # secondes avant d'arrêter l'écoute
 SAMPLE_RATE = 16000
 FRAME_DURATION_MS = 20
@@ -30,7 +30,7 @@ BYTES_PER_FRAME = SAMPLES_PER_FRAME * 2  # 640
 
 # --- Wakeword ---
 porcupine = pvporcupine.create(
-    access_key=access_key,
+    access_key=PICOVOICE_KEY,
     keyword_paths=[KEYWORD_PATH],
     model_path=MODEL_PATH
 )

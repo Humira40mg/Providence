@@ -1,0 +1,19 @@
+variables:
+  ainame: Providence
+  username: sans nom
+  language: français
+
+llm:
+  model: qwen3-vl:4b-instruct 
+  contextwindow: 256000
+  vision: true
+  thinking: false
+
+api:
+  port: 4242
+
+tokens:
+  picovoice: token
+  google:
+    api: token
+    cx: token

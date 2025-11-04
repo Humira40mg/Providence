@@ -6,11 +6,11 @@ from memoriser import memory, addToMemory, removeFromMemory
 from logger import logger
 import Tools
 from parser import parseEyeResponse
-from config_read import config, texthistory
+from config_read import AINAME, USERNAME, LANGUAGE, MODEL, CTXWIN, texthistory
 from datetime import datetime
 
-with open(f"ressources/systemprompt.txt", "r", encoding="utf-8") as file:
-    sys_prompt = file.read().replace("$ainame", config["ainame"]).replace("$username", config["username"]).replace("$language", config['language'])
+with open(f"resources/systemprompt.txt", "r", encoding="utf-8") as file:
+    sys_prompt = file.read().replace("$ainame", AINAME).replace("$username", USERNAME).replace("$language", LANGUAGE)
 
 toolList = {"Eyes": [], "Chat": [], "N/A": []}
 for toolname in Tools.__all__ :
@@ -29,7 +29,7 @@ class OllamaAccess :
     Singleton, so if i extend the project to a voice assistant i don't overload my GPU """
     __instance = None
 
-    def __init__(self, base_url="http://localhost:11434", model=config["model"]):
+    def __init__(self, base_url="http://localhost:11434", model=MODEL):
         """ Constructor """
         if OllamaAccess.__instance is not None:
             raise Exception("Use get_instance() to get the OllamaClient object.")
@@ -67,7 +67,7 @@ class OllamaAccess :
                 self.history.append(response)
                 logger.info(response)
 
-        if len(f"{systemPrompt} {str(self.history)}".split()) > (int(config['contextwindow']) // 2):
+        if len(f"{systemPrompt} {str(self.history)}".split()) > (int(CTXWIN) // 2):
             self.tronkHistory()
         
         payload = {
@@ -143,7 +143,7 @@ class OllamaAccess :
                     logger.info(resp)
 
             # Tronque l'historique si trop long
-            if len(f"{systemPrompt} {str(self.history)}".split()) > (int(config['contextwindow']) // 2):
+            if len(f"{systemPrompt} {str(self.history)}".split()) > (int(CTXWIN) // 2):
                 self.tronkHistory()
 
             # Prépare le payload pour Ollama

@@ -3,11 +3,8 @@ import requests
 import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+from config_read import GOOGLE_API_KEY, GOOGLE_CX
 
-load_dotenv()
-
-API_KEY = os.getenv("GOOGLE_API_KEY")  
-CX = os.getenv("GOOGLE_CX")
 
 class WebSearch(Tool):
 
@@ -19,8 +16,8 @@ class WebSearch(Tool):
     def activate(self, aichoice: str) -> dict: 
         url = "https://www.googleapis.com/customsearch/v1"
         params = {
-            "key": API_KEY,
-            "cx": CX,
+            "key": GOOGLE_API_KEY,
+            "cx": GOOGLE_CX,
             "q": aichoice,
             "num": 3 
         }

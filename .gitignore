@@ -1,7 +1,6 @@
-.env
 src/__pycache__
-ressources/providence.log
-ressources/old-voice-reference.wav
+resources/providence.log
+resources/old-voice-reference.wav
 data/memory.json
 processed
 src/Tools/__pycache__

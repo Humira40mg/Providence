@@ -3,7 +3,7 @@ import logging
 logger = logging.getLogger('Providence')
 logger.setLevel(logging.INFO)
 
-handler = logging.FileHandler('ressources/providence.log') 
+handler = logging.FileHandler('resources/providence.log') 
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 

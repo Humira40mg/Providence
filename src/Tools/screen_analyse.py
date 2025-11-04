@@ -7,21 +7,21 @@ from pytesseract import image_to_string
 from generationlock import generationLock
 import base64
 import requests
-from config_read import config
+from config_read import VISION
 
 desc = "Call this to get an OCR extraction of what the user is seeing."
-if config["vision"] :
+if VISION :
     desc = "Call this to get a screenshot of what the user is seeing."
 
 def analyse_factory():
 
-    if config["vision"]:
+    if VISION:
         
         def vision(filename):
             with open(path.abspath(filename), "rb") as f:
                 img = [base64.b64encode(f.read()).decode("utf-8")]
             remove(filename)
-            return {"role":"tool", "content":"", "images":[img], "tool_name":"ScreenAnalyse"}
+            return {"role":"tool", "content":"", "images":img, "tool_name":"ScreenAnalyse"}
             
         return vision
 

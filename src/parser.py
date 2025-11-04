@@ -2,7 +2,7 @@ import Tools
 from subprocess import run
 from os import path
 
-icon = path.abspath("ressources/providence.png")
+icon = path.abspath("resources/providence.png")
 
 def notify(msg):
     run([

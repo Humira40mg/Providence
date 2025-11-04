@@ -24,7 +24,7 @@ makedirs(output_dir, exist_ok=True)
 
 
 #Obtain Tone Color Embedding
-reference_speaker = "ressources/voice-reference.wav" # This is the voice you want to clone
+reference_speaker = "resources/voice-reference.wav" # This is the voice you want to clone
 target_se, audio_name = se_extractor.get_se(reference_speaker, tone_color_converter, vad=True)
 
 

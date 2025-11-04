@@ -1,6 +1,6 @@
 from flask import Flask, request, Response, render_template
 from flask_cors import CORS
-from llmaccess import OllamaAccess, config, texthistory
+from llmaccess import OllamaAccess, texthistory
 from time import sleep
 from os import makedirs, walk, remove, path, getpid
 from infogetter import getWindowsTitles
@@ -12,6 +12,7 @@ from Tools import ScreenAnalyse
 import threading
 from voice_assist import wakeOnWord
 import requests
+from config_read import USERNAME, THINKING, PORT, MODEL
 
 
 logger.info("Initialisation of Providence's Server")
@@ -42,7 +43,7 @@ def cooldown(time, stop_event):
 
 def eye_in_the_sky(stop_event):
     """thread handler, fonction that is basicly a spyware but the informations are given to your local ia"""
-    providence.chat(f"{config['username']} est là. Présente lui tes salutations en fonction du contexte temporel donné en system prompt. Utilise la fonction d'intervention !", notextlog=True)
+    providence.chat(f"{USERNAME} est là. Présente lui tes salutations en fonction du contexte temporel donné en system prompt. Utilise la fonction d'intervention !", notextlog=True)
 
     if cooldown(120, stop_event):
         return
@@ -51,7 +52,7 @@ def eye_in_the_sky(stop_event):
 
         output = ScreenAnalyse().activate()
         prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nOpened Applications: {getWindowsTitles()} {output['content']}"
-        providence.chat(prompt, hiddenTools="Eyes", think = config["thinking"], images = output["images"], notextlog=True)
+        providence.chat(prompt, hiddenTools="Eyes", think = THINKING, images = output["images"], notextlog=True)
 
         if cooldown(120, stop_event):
             return
@@ -63,10 +64,10 @@ vocal_thread = None
 
 
 def run_flask():
-    api.run(port=config["apiport"], debug=True, use_reloader=False)
+    api.run(port=PORT, debug=True, use_reloader=False)
 
 
-@api.route("/launch", methods=['POST'])
+@api.route("/launch", methods=['GET'])
 def launchEvent():
     """initialize the providence spying capabilities"""
     global capture_thread, vocal_thread
@@ -90,7 +91,7 @@ def launchEvent():
     return "Providence's eyes and ears opened\n"
 
 
-@api.route("/stop", methods=['POST'])
+@api.route("/stop", methods=['GET'])
 def stopEvent():
     """safly end providence's eyes and ears thread."""
     if stop_event.is_set():
@@ -104,14 +105,14 @@ def stopEvent():
     logger.info("Providence's eyes closed")
 
     requests.post("http://localhost:11434/api/chat", json={
-        "model": config["model"],
+        "model": MODEL,
         "messages": [],
         "keep_alive": 0
         })
     return "Providence's eyes and ears closed\n"
 
 
-@api.route("/toggleyapping", methods=['POST'])
+@api.route("/toggleyapping", methods=['GET'])
 def toggleYappingEvent():
     """Toggle speaking capabilities"""
     toggle_yapping()
@@ -122,7 +123,7 @@ def toggleYappingEvent():
     return "Providence's eyes closed\n"
 
 
-@api.route('/shutdown', methods=['POST'])
+@api.route('/shutdown', methods=['GET'])
 def shutdown():
     """Close the pyhton process"""
     try:
@@ -137,7 +138,7 @@ def shutdown():
             logger.info("Providence's eyes closed\n")
         
         requests.post("http://localhost:11434/api/chat", json={
-            "model": config["model"],
+            "model": MODEL,
             "messages": [],
             "keep_alive": 0
             })
@@ -154,7 +155,7 @@ def index():
     return render_template("index.html", messages=texthistory, yapping=is_yapping())
 
 
-@api.route("/chat", methods=["POST"])
+@api.route("/chat", methods=["GET"])
 def chat():
     data = request.get_json()
     user_message = data.get("message", "")
