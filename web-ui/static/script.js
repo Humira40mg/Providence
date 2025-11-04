@@ -100,5 +100,5 @@ let yapping = toggle.checked;
 toggle.addEventListener("change", () => {
   yapping = toggle.checked;
   console.log("Yapping mode:", yapping);
-  fetch("/toggleyapping", {method:"POST"});
+  fetch("/toggleyapping", {method:"GET"});
 });
