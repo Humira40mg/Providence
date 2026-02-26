@@ -67,15 +67,19 @@ class OllamaAccess :
                 self.history.append(response)
                 logger.info(response)
 
-        if len(f"{systemPrompt} {str(self.history)}".split()) > (int(CTXWIN) // 2):
-            self.tronkHistory()
+        self.manageHistory()
         
         payload = {
                 "model": self.model,
                 "messages": [{"role": "system", "content": systemPrompt}] + self.history,
                 "think": think,
                 "images": images,
-                "stream": False
+                "stream": False,
+                "options": {
+                    "temperature": 0.5,
+                    "top_p": 0.95,
+                    "repeat_penalty": 1.1
+                }
             }
         
         if useTools:
@@ -143,8 +147,7 @@ class OllamaAccess :
                     logger.info(resp)
 
             # Tronque l'historique si trop long
-            if len(f"{systemPrompt} {str(self.history)}".split()) > (int(CTXWIN) // 2):
-                self.tronkHistory()
+            self.manageHistory()
 
             # Prépare le payload pour Ollama
             payload = {
@@ -154,7 +157,11 @@ class OllamaAccess :
                 "images": images,
                 "tools": toolList.get(hiddenTools, []),
                 "tool_choice": "auto",
-                "stream": True
+                "stream": True,
+                "options": {
+                    "temperature": 0.5,
+                    "top_p": 0.95,
+                    "repeat_penalty": 1.1                }
             }
             # Envoie la requête
             response = requests.post(f"{self.base_url}/api/chat", json=payload, stream=True)
@@ -217,13 +224,22 @@ class OllamaAccess :
             raise
 
             
-    def tronkHistory(self):
-        """ Make the AI forgot the oldest half of the dialogue History """
-        self.history = self.history[floor(len(self.history)/2):]
+    def manageHistory(self):
+        """ Make the AI forgot old images, and too old context"""
+        totalContextlenght = 0
+        for i in range(0, len(self.history)) :
+            totalContextlenght += len(self.history[i]["content"])
+
+            if totalContextlenght//2 > CTXWIN :
+                self.history = self.history[i:]
+                break
+
+        for elem in self.history[:-1]:
+            elem["images"] = None
+
         logger.info("History tronked.")
 
     def updateSystemPrompt(self, sysprompt: str) -> str:
         """ Update the system prompt with the current memory """
         #restructuration of memory in a string
         return f"{sysprompt} Informations saved in your long term memory are : [{str(self.memory)}]"
-    

@@ -21,7 +21,7 @@ def analyse_factory():
             with open(path.abspath(filename), "rb") as f:
                 img = [base64.b64encode(f.read()).decode("utf-8")]
             remove(filename)
-            return {"role":"tool", "content":"", "images":img, "tool_name":"ScreenAnalyse"}
+            return {"role":"user", "content":"", "images":img, "tool_name":"ScreenAnalyse"}
             
         return vision
 

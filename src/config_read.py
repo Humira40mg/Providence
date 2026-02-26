@@ -1,4 +1,34 @@
 import yaml
+from os import path
+
+DEFAULT_CONFIG = {
+    "variables": {
+        "ainame": "Providence",
+        "username": "JoKSo",
+        "language": "français"
+    },
+    "llm": {
+        "model": "qwen3-vl:4b-instruct",
+        "contextwindow": 256000,
+        "vision": True,
+        "thinking": False
+    },
+    "api": {
+        "port": 4242
+    },
+    "tokens": {
+        "picovoice": "",
+        "google": {
+            "api": "",
+            "cx": ""
+        }
+    }
+}
+
+if not path.exists("config.yml"):
+    with open("config.yml", "w") as f:
+        yaml.dump(DEFAULT_CONFIG, f, default_flow_style=False)
+    print("config.yml créé. Remplis les valeurs avant de relancer.")
 
 #Getting the conf:
 with open("config.yml", "r", encoding="utf-8") as file:

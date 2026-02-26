@@ -1,5 +1,7 @@
 from flask import Flask, request, Response, render_template
 from flask_cors import CORS
+
+import config_read
 from llmaccess import OllamaAccess, texthistory
 from time import sleep
 from os import makedirs, walk, remove, path, getpid
@@ -25,6 +27,7 @@ for root, dirs, files in walk("./temp"):
     for file in files:
         remove(path.join(root, file))
 
+VISION: bool = config_read.VISION
 BASE_DIR = path.abspath(path.join(path.dirname(__file__), ".."))
 api = Flask(__name__, template_folder=path.join(BASE_DIR, "web-ui"), static_folder=path.join(BASE_DIR, "web-ui/static"))
 CORS(api)
@@ -52,6 +55,8 @@ def eye_in_the_sky(stop_event):
 
         output = ScreenAnalyse().activate()
         prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nOpened Applications: {getWindowsTitles()} {output['content']}"
+        if VISION :
+            prompt = "Voici une image de ce que je vois actuellement, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais."
         providence.chat(prompt, hiddenTools="Eyes", think = THINKING, images = output["images"], notextlog=True)
 
         if cooldown(120, stop_event):
@@ -155,7 +160,7 @@ def index():
     return render_template("index.html", messages=texthistory, yapping=is_yapping())
 
 
-@api.route("/chat", methods=["GET"])
+@api.route("/chat", methods=["GET", "POST"])
 def chat():
     data = request.get_json()
     user_message = data.get("message", "")

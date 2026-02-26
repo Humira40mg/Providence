@@ -27,8 +27,8 @@ async function sendMessage() {
   aiMsg.appendChild(toolstips)
 
   try {
-    const response = await fetch("/chat", {
-      method: "GET",
+      const response = await fetch("/chat", {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text })
     });
