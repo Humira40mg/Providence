@@ -10,7 +10,7 @@ from logger import logger
 from parser import run
 from yapper import yap, is_yapping, toggle_yapping
 from pygame import mixer
-from Tools import ScreenAnalyse
+from Tools import WatchScreen
 import threading
 from voice_assist import wakeOnWord
 import requests
@@ -53,7 +53,7 @@ def eye_in_the_sky(stop_event):
 
     while not stop_event.is_set() :
 
-        output = ScreenAnalyse().activate()
+        output = WatchScreen().activate()
         prompt = f"Voici des informations récoltées sur mon ordinateur, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais.\nOpened Applications: {getWindowsTitles()} {output['content']}"
         if VISION :
             prompt = "Voici une image de ce que je vois actuellement, décide toi même si tu dois intervenir pour m'aider ou faire une remarque mais SI ET SEULEMENT SI tu juge ton intervention pertinante. Sinon n'utilise surtout pas le tool 'Intervention'. Ne répond pas de façon systématique et ne te répète jamais."

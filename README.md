@@ -13,9 +13,9 @@ Toutes les **1 minute 30**, il récupère ce que je vois à l'écran et ce que j
 C’est un assistant qui :
 
 * Observe l’écran à intervalles réguliers
-* Lit le texte à l’écran via **OCR**
+* Lit le texte à l’écran via **OCR** (ou vision)
 * Identifie les fenêtres ouvertes
-* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)(Actuellement j'utilise qwen3:4b-instruct)
+* Génère une réaction avec un modèle LLM local (ex : Qwen3, llama3.2...)(Actuellement j'utilise qwen3-vl:4b-instruct)
 * Parle avec une voix custom (en français, anglais, japonais…)
 * Ne dit rien si il n’y a rien d’utile à dire
 * Wake on word pour assistance vocal (Providence)
@@ -59,16 +59,17 @@ sudo apt install tesseract-ocr libnotify-bin wmctrl
 
 Aussi installer Ollama (sinon on ne va pas aller très loin).
 
-5. Créer un fichier `.env` à la racine du projet avec les clés suivantes :
+5. Renseigner les clefs manquante dans le fichier de configuration (*éxecuter run.sh si non présent*) :
 
-```env
-GOOGLE_API_KEY=ta_clef_google
-GOOGLE_CX=ton_CX_customsearch
-PICOVOICE_KEY=ta_clef_picovoice
+```yaml
+  picovoice: ta_clef_picovoice
+  google:
+    api: ta_clef_google
+    cx: ton_CX_customsearch
 ```
 
-* `GOOGLE_API_KEY` et `GOOGLE_CX` : pour le module WebSearch (Google Custom Search).
-* `PICOVOICE_KEY` : pour le wake-on-word via Picovoice.
+* `api` et `cx` : pour le module WebSearch (Google Custom Search).
+* `picovoice` : pour le wake-on-word via Picovoice.
 
 6. Lancer avec :
 
@@ -110,7 +111,7 @@ Tout est **local** :
 
 ## À venir
 
-* Meilleure personnalisation des réactions
+* Meilleure mémoire long terme
 * Changement du TTS
 
 ---
