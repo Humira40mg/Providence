@@ -11,7 +11,12 @@ DEFAULT_CONFIG = {
         "model": "qwen3-vl:4b-instruct",
         "contextwindow": 256000,
         "vision": True,
-        "thinking": False
+        "thinking": False,
+        "options": {
+            "temperature": 0.5,
+            "top_p": 0.95,
+            "repeat_penalty": 1.1
+        }
     },
     "api": {
         "port": 4242
@@ -44,6 +49,9 @@ MODEL = config["llm"]["model"]
 CTXWIN = config["llm"]["contextwindow"]
 VISION = config["llm"]["vision"]
 THINKING = config["llm"]["thinking"]
+TEMPERATURE = config["llm"]["options"]["temperature"]
+TOP_P = config["llm"]["options"]["top_p"]
+REPEAT_PENALTY = config["llm"]["options"]["repeat_penalty"]
 
 PORT = config["api"]["port"]
 

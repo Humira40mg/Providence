@@ -1,12 +1,11 @@
 from generationlock import generationLock
 import json
 import requests
-from math import floor
-from memoriser import memory, addToMemory, removeFromMemory
+from memoriser import memory
 from logger import logger
 import Tools
 from parser import parseEyeResponse
-from config_read import AINAME, USERNAME, LANGUAGE, MODEL, CTXWIN, texthistory
+from config_read import AINAME, USERNAME, LANGUAGE, MODEL, CTXWIN, texthistory, TEMPERATURE, TOP_P, REPEAT_PENALTY
 from datetime import datetime
 
 with open(f"resources/systemprompt.txt", "r", encoding="utf-8") as file:
@@ -76,9 +75,9 @@ class OllamaAccess :
                 "images": images,
                 "stream": False,
                 "options": {
-                    "temperature": 0.5,
-                    "top_p": 0.95,
-                    "repeat_penalty": 1.1
+                    "temperature": TEMPERATURE,
+                    "top_p": TOP_P,
+                    "repeat_penalty": REPEAT_PENALTY
                 }
             }
         
@@ -159,9 +158,10 @@ class OllamaAccess :
                 "tool_choice": "auto",
                 "stream": True,
                 "options": {
-                    "temperature": 0.5,
-                    "top_p": 0.95,
-                    "repeat_penalty": 1.1                }
+                    "temperature": TEMPERATURE,
+                    "top_p": TOP_P,
+                    "repeat_penalty": REPEAT_PENALTY
+                }
             }
             # Envoie la requête
             response = requests.post(f"{self.base_url}/api/chat", json=payload, stream=True)
