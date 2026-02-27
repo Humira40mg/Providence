@@ -21,8 +21,10 @@ def parseEyeResponse(response: dict):
     for d in response['tool_calls']:
         tool = getattr(Tools, d['function']['name'])
         args = d['function'].get('arguments')
-        arg = args.get('aichoice')
-        result = tool().activate(args.get('aichoice'))
+        arg = None
+        if args :
+            arg = args.get('aichoice')
+        result = tool().activate(arg)
         if result: recursiveprompt.append(result)
     
     return recursiveprompt

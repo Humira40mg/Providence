@@ -4,3 +4,4 @@ resources/old-voice-reference.wav
 data/memory.json
 processed
 src/Tools/__pycache__
+config.yml
